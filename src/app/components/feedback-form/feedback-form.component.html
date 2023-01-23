@@ -1,5 +1,5 @@
 <h1>Форма обратной связи</h1>
-<form [formGroup]="feedBackForm" class="feedback-form">
+<form [formGroup]="feedBackForm" class="feedback-form" (submit)="onSubmit()">
   <mat-form-field>
     <mat-label>ФИО</mat-label>
     <input class="form-input" matInput formControlName="fio" required />
@@ -10,7 +10,14 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Телефон</mat-label>
-    <input class="form-input" matInput formControlName="phoneNumber" required />
+    <input
+      class="form-input"
+      prefix="+7"
+      mask="(000) 000 00 00"
+      matInput
+      formControlName="phoneNumber"
+      required
+    />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Комментарий</mat-label>
@@ -27,13 +34,7 @@
     [disabled]="feedBackForm.invalid"
     >Согласие на обработку персональных данных</mat-checkbox
   >
-  <button
-    mat-raised-button
-    color="primary"
-    type="submit"
-    [disabled]="feedBackForm.invalid"
-    class="submit-button"
-  >
+  <button mat-raised-button color="primary" type="submit" class="submit-button">
     Отправить
   </button>
 </form>

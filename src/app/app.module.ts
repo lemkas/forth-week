@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AppComponent } from './app.component';
 import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [AppComponent, FeedbackFormComponent],
@@ -22,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

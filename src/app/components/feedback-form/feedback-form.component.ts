@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FeedbackFormComponent implements OnInit {
   feedBackForm!: FormGroup;
+  showModal: boolean = false;
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -18,9 +19,17 @@ export class FeedbackFormComponent implements OnInit {
     this.feedBackForm = this.fb.group({
       fio: ['', [Validators.required, Validators.min(6), Validators.max(256)]],
       email: ['', [Validators.required, Validators.email, Validators.max(256)]],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['+7', Validators.required],
       comment: ['', Validators.max(256)],
       consent: [false, Validators.required],
     });
+  }
+
+  onSubmit() {
+    if (this.feedBackForm.valid) {
+      console.log(this.feedBackForm.value);
+    } else {
+      console.log('хуйня');
+    }
   }
 }
