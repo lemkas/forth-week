@@ -2,11 +2,11 @@
 <form [formGroup]="feedBackForm" class="feedback-form" (submit)="onSubmit()">
   <mat-form-field>
     <mat-label>ФИО</mat-label>
-    <input class="form-input" matInput formControlName="fio" required />
+    <input class="form-input" matInput formControlName="fio" />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Почта</mat-label>
-    <input class="form-input" matInput formControlName="email" required />
+    <input class="form-input" matInput formControlName="email" />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Телефон</mat-label>
@@ -16,7 +16,6 @@
       mask="(000) 000 00 00"
       matInput
       formControlName="phoneNumber"
-      required
     />
   </mat-form-field>
   <mat-form-field>
@@ -28,7 +27,10 @@
       formControlName="comment"
     ></textarea>
   </mat-form-field>
-  <mat-checkbox class="form-input" formControlName="consent"
+  <mat-checkbox
+    class="form-input"
+    formControlName="consent"
+    [disabled]="!isValidFields"
     >Согласие на обработку персональных данных</mat-checkbox
   >
   <button mat-raised-button color="primary" type="submit" class="submit-button">
