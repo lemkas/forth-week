@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { IFeedbackForm } from 'src/app/models/feedback-form';
@@ -20,6 +14,7 @@ export class FeedbackFormComponent implements OnInit {
   feedBackForm!: FormGroup;
   isValidFields: boolean = false;
   subscription!: Subscription;
+  showForm: boolean = true;
   constructor(private fb: FormBuilder, private dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -51,16 +46,6 @@ export class FeedbackFormComponent implements OnInit {
   }
 
   checkValid() {
-    // this.subscription = this.feedBackForm.statusChanges.subscribe((status) => {
-    //   if (status === 'VALID') {
-    //     this.isValidFields = true;
-    //     console.log(status);
-    //   } else if (status === 'INVALID') {
-    //     this.isValidFields = false;
-    //     console.log(status);
-    //   }
-    // });
-
     this.subscription = this.feedBackForm.valueChanges.subscribe((data) => {
       const fio = this.feedBackForm.get('fio');
       const email = this.feedBackForm.get('email');
@@ -75,7 +60,7 @@ export class FeedbackFormComponent implements OnInit {
       }
     });
   }
-
+  //получить массив имен невалидных контроллов и распихать их по спанам под
   openModal() {
     this.dialog.open(ModalComponent);
   }
@@ -83,8 +68,12 @@ export class FeedbackFormComponent implements OnInit {
   onSubmit() {
     if (this.feedBackForm.valid) {
       console.log(this.feedBackForm.value);
+      this.showForm = false;
+      setTimeout(() => {
+        this.feedBackForm.reset();
+        this.showForm = true;
+      });
       this.openModal();
-      this.feedBackForm.reset();
     } else {
       console.log('хуйня');
     }

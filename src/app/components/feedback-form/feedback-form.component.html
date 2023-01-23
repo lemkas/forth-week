@@ -1,5 +1,10 @@
 <h1>Форма обратной связи</h1>
-<form [formGroup]="feedBackForm" class="feedback-form" (submit)="onSubmit()">
+<form
+  *ngIf="showForm"
+  [formGroup]="feedBackForm"
+  class="feedback-form"
+  (submit)="onSubmit()"
+>
   <mat-form-field>
     <mat-label>ФИО</mat-label>
     <input class="form-input" matInput formControlName="fio" />
