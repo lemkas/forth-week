@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { IFeedbackForm } from 'src/app/models/feedback-form';
+import { CheckboxValidator } from 'src/app/validators/checkbox.validator';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-feedback-form',
@@ -8,11 +12,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FeedbackFormComponent implements OnInit {
   feedBackForm!: FormGroup;
-  showModal: boolean = false;
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private checkboxValidator: CheckboxValidator
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
+    console.log(this.feedBackForm.get('fio'));
   }
 
   initForm() {
@@ -21,13 +29,19 @@ export class FeedbackFormComponent implements OnInit {
       email: ['', [Validators.required, Validators.email, Validators.max(256)]],
       phoneNumber: ['+7', Validators.required],
       comment: ['', Validators.max(256)],
-      consent: [false, Validators.required],
+      consent: ['', Validators.requiredTrue],
     });
+  }
+
+  openModal() {
+    this.dialog.open(ModalComponent);
   }
 
   onSubmit() {
     if (this.feedBackForm.valid) {
       console.log(this.feedBackForm.value);
+      this.openModal();
+      this.feedBackForm.reset();
     } else {
       console.log('хуйня');
     }

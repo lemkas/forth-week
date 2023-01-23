@@ -3,4 +3,5 @@ export interface IFeedbackForm {
   email: string;
   phoneNumber: string;
   comment?: string;
+  consent: boolean;
 }
