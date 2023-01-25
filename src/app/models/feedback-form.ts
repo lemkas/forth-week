@@ -1,7 +1,9 @@
+import { FormControl } from '@angular/forms';
+
 export interface IFeedbackForm {
-  fio: string;
-  email: string;
-  phoneNumber: string;
-  comment?: string;
-  consent: boolean;
+  fio: FormControl<string>;
+  email: FormControl<string>;
+  phoneNumber: FormControl<string>;
+  comment: FormControl<string>;
+  consent: FormControl<boolean>;
 }

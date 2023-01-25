@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { IFeedbackForm } from 'src/app/models/feedback-form';
@@ -11,7 +16,8 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./feedback-form.component.scss'],
 })
 export class FeedbackFormComponent implements OnInit {
-  feedBackForm!: FormGroup;
+  feedBackForm!: FormGroup<IFeedbackForm>;
+  // feedBackForm!: IFeedbackForm;
   isValidFields: boolean = false;
   subscription!: Subscription;
   showForm: boolean = true;
@@ -26,7 +32,7 @@ export class FeedbackFormComponent implements OnInit {
     this.subscription.unsubscribe();
   }
   initForm() {
-    this.feedBackForm = this.fb.group({
+    this.feedBackForm = this.fb.nonNullable.group({
       fio: [
         '',
         [
@@ -46,6 +52,7 @@ export class FeedbackFormComponent implements OnInit {
   }
 
   checkValid() {
+    //подписка на валидность полей
     this.subscription = this.feedBackForm.valueChanges.subscribe((data) => {
       const fio = this.feedBackForm.get('fio');
       const email = this.feedBackForm.get('email');
