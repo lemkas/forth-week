@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { IFeedbackForm } from 'src/app/models/feedback-form';
@@ -17,7 +12,6 @@ import { ModalComponent } from '../modal/modal.component';
 })
 export class FeedbackFormComponent implements OnInit {
   feedBackForm!: FormGroup<IFeedbackForm>;
-  // feedBackForm!: IFeedbackForm;
   isValidFields: boolean = false;
   subscription!: Subscription;
   showForm: boolean = true;
@@ -52,22 +46,20 @@ export class FeedbackFormComponent implements OnInit {
   }
 
   checkValid() {
-    //подписка на валидность полей
-    this.subscription = this.feedBackForm.valueChanges.subscribe((data) => {
+    this.subscription = this.feedBackForm.valueChanges.subscribe(() => {
       const fio = this.feedBackForm.get('fio');
       const email = this.feedBackForm.get('email');
       const phoneNumber = this.feedBackForm.get('phoneNumber');
 
       if (fio?.valid && email?.valid && phoneNumber?.valid) {
+        // почему тут фио возможно null
         this.isValidFields = true;
-        console.log(this.isValidFields);
       } else {
         this.isValidFields = false;
-        console.log(this.isValidFields);
       }
     });
   }
-  //получить массив имен невалидных контроллов и распихать их по спанам под
+
   openModal() {
     this.dialog.open(ModalComponent);
   }
@@ -82,7 +74,7 @@ export class FeedbackFormComponent implements OnInit {
       });
       this.openModal();
     } else {
-      console.log('хуйня');
+      console.log('не норм');
     }
   }
 }
