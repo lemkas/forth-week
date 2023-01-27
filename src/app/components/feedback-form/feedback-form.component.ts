@@ -13,7 +13,7 @@ import { ModalComponent } from '../modal/modal.component';
 export class FeedbackFormComponent implements OnInit {
   feedBackForm!: FormGroup<IFeedbackForm>;
   isValidFields: boolean = false;
-  subscription!: Subscription;
+  private subscription!: Subscription;
   showForm: boolean = true;
   constructor(private fb: FormBuilder, private dialog: MatDialog) {}
 
@@ -25,7 +25,7 @@ export class FeedbackFormComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-  initForm() {
+  initForm(): void {
     this.feedBackForm = this.fb.nonNullable.group({
       fio: [
         '',
@@ -45,7 +45,7 @@ export class FeedbackFormComponent implements OnInit {
     });
   }
 
-  checkValid() {
+  checkValid(): void {
     this.subscription = this.feedBackForm.valueChanges.subscribe(() => {
       const fio = this.feedBackForm.get('fio');
       const email = this.feedBackForm.get('email');
@@ -60,12 +60,19 @@ export class FeedbackFormComponent implements OnInit {
     });
   }
 
-  openModal() {
+  preparePhone() {
+    const code = '+7';
+    const phoneNumberControl = this.feedBackForm.get('phoneNumber');
+    phoneNumberControl?.setValue(code + phoneNumberControl.value);
+  }
+
+  openModal(): void {
     this.dialog.open(ModalComponent);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.feedBackForm.valid) {
+      this.preparePhone();
       console.log(this.feedBackForm.value);
       this.showForm = false;
       setTimeout(() => {
