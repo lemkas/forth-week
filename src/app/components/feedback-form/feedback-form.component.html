@@ -8,10 +8,13 @@
   <mat-form-field>
     <mat-label>ФИО</mat-label>
     <input class="form-input" matInput formControlName="fio" />
+    <mat-error> ФИО <strong>обязательное поле!</strong> </mat-error>
   </mat-form-field>
+
   <mat-form-field>
     <mat-label>Почта</mat-label>
     <input class="form-input" matInput formControlName="email" />
+    <mat-error> Почта <strong>обязательное поле!</strong> </mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Телефон</mat-label>
@@ -22,7 +25,9 @@
       matInput
       formControlName="phoneNumber"
     />
+    <mat-error> Телефон <strong>обязательное поле!</strong> </mat-error>
   </mat-form-field>
+
   <mat-form-field>
     <mat-label>Комментарий</mat-label>
     <textarea
@@ -38,6 +43,7 @@
     [disabled]="!isValidFields"
     >Согласие на обработку персональных данных</mat-checkbox
   >
+
   <button mat-raised-button color="primary" type="submit" class="submit-button">
     Отправить
   </button>
