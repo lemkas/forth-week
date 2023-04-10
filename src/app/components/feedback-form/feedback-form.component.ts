@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { IFeedbackForm } from 'src/app/models/feedback-form';
 import { ModalComponent } from '../modal/modal.component';
+import { NumberValidator } from 'src/app/validators/number.validators';
 
 @Component({
   selector: 'app-feedback-form',
@@ -11,12 +11,17 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./feedback-form.component.scss'],
 })
 export class FeedbackFormComponent implements OnInit {
-  feedBackForm!: FormGroup<IFeedbackForm>;
+  feedBackForm!: FormGroup;
   isValidFields: boolean = false;
+  showForm: boolean = true;
+  isNumberError: boolean = false;
   private invalidControls: Array<string> = [];
   private subscription!: Subscription;
-  showForm: boolean = true;
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {}
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private validator: NumberValidator
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -41,6 +46,7 @@ export class FeedbackFormComponent implements OnInit {
         [Validators.required, Validators.email, Validators.maxLength(256)],
       ],
       phoneNumber: ['+7', Validators.required],
+      badgeNumber: [null, [this.validator.isNumber]],
       comment: ['', Validators.maxLength(256)],
       consent: [false, Validators.requiredTrue],
     });
@@ -51,6 +57,13 @@ export class FeedbackFormComponent implements OnInit {
       const fio = this.feedBackForm.get('fio');
       const email = this.feedBackForm.get('email');
       const phoneNumber = this.feedBackForm.get('phoneNumber');
+      const badgeNumber = this.feedBackForm.get('badgeNumber');
+
+      if (badgeNumber?.invalid) {
+        this.isNumberError = true;
+      } else {
+        this.isNumberError = false;
+      }
 
       if (fio?.valid && email?.valid && phoneNumber?.valid) {
         // почему тут фио возможно null

@@ -12,6 +12,14 @@
   </mat-form-field>
 
   <mat-form-field>
+    <mat-label>Номер бейджа</mat-label>
+    <input class="form-input" matInput formControlName="badgeNumber" />
+    <mat-error *ngIf="isNumberError">
+      Номер Бейджа <strong>может содержать только цифры!</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
     <mat-label>Почта</mat-label>
     <input class="form-input" matInput formControlName="email" />
     <mat-error> Почта <strong>обязательное поле!</strong> </mat-error>

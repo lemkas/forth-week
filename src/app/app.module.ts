@@ -13,9 +13,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskModule } from 'ngx-mask';
 import { ModalComponent } from './components/modal/modal.component';
 import { CheckboxValidator } from './validators/checkbox.validator';
+import { DropdowmComponent } from './ui/dropdowm/dropdowm.component';
+import { NumberValidator } from './validators/number.validators';
 
 @NgModule({
-  declarations: [AppComponent, FeedbackFormComponent, ModalComponent],
+  declarations: [
+    AppComponent,
+    FeedbackFormComponent,
+    ModalComponent,
+    DropdowmComponent,
+  ],
   imports: [
     BrowserModule,
     CommonModule,
@@ -29,7 +36,7 @@ import { CheckboxValidator } from './validators/checkbox.validator';
     MatCheckboxModule,
     NgxMaskModule.forRoot(),
   ],
-  providers: [CheckboxValidator],
+  providers: [CheckboxValidator, NumberValidator],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
