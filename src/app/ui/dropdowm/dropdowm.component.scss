@@ -1,0 +1,43 @@
+//Выберу яркий и насыщенный цвет, который так любит Артемий Лебедев - красный (#E61E25) и добавлю несколько необычных эффектов, чтобы стиль был похож на его дизайнерские работы
+// Версия чата gpt
+
+.select {
+  /* базовые стили */
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 18px;
+  border: none;
+  border-bottom: 3px solid #e61e25;
+  background-color: white;
+  color: #444444;
+  padding: 5px 0 5px 0;
+  border-radius: 0px;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  /* стили элементов внутри select */
+}
+.select .select-option {
+  background-color: #e61e25;
+  color: white;
+  /* стили при наведении на элемент */
+}
+.select .select-option:hover {
+  background-color: #444444;
+  color: white;
+}
+/* стили для открытого списка */
+.select:focus,
+.select:active {
+  border-bottom: 3px solid #444444;
+  background-color: #e61e25;
+  color: white;
+  /* стили выбранного элемента */
+}
+.select .select-option:checked {
+  background-color: white;
+  color: #e61e25;
+  border-bottom: 1px solid #e61e25;
+  padding: 10px 5px;
+  text-shadow: 0px 0px 10px #e61e25, 0px 0px 10px #e61e25, 0px 0px 10px #e61e25;
+  transform: skewX(-15deg);
+}
