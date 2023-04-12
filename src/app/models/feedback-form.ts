@@ -8,3 +8,9 @@ export interface IFeedbackForm {
   comment: FormControl<string>;
   consent: FormControl<boolean>;
 }
+
+export enum DEPARTMENTS {
+  FINANCE_DEPARTMENT = 'Финансовый отдел',
+  ACCOUNTING_DEPARTMENT = 'Бухгалтерия',
+  HR_DEPARTMENT = 'Отдел кадров',
+}

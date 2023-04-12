@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { ModalComponent } from '../modal/modal.component';
 import { NumberValidator } from 'src/app/validators/number.validators';
+import { FeedbackService } from 'src/app/services/feedback.service';
 
 @Component({
   selector: 'app-feedback-form',
@@ -15,12 +16,14 @@ export class FeedbackFormComponent implements OnInit {
   isValidFields: boolean = false;
   showForm: boolean = true;
   isNumberError: boolean = false;
+  departments: any[] = this.feedBackService.departments;
   private invalidControls: Array<string> = [];
   private subscription!: Subscription;
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private validator: NumberValidator
+    private validator: NumberValidator,
+    private feedBackService: FeedbackService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +49,7 @@ export class FeedbackFormComponent implements OnInit {
         [Validators.required, Validators.email, Validators.maxLength(256)],
       ],
       phoneNumber: ['+7', Validators.required],
+      department: '',
       badgeNumber: [null, [this.validator.isNumber]],
       comment: ['', Validators.maxLength(256)],
       consent: [false, Validators.requiredTrue],

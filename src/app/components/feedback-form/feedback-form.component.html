@@ -35,7 +35,10 @@
     />
     <mat-error> Телефон <strong>обязательное поле!</strong> </mat-error>
   </mat-form-field>
-  <app-dropdowm></app-dropdowm>
+  <app-dropdowm
+    [options]="departments"
+    formControlName="department"
+  ></app-dropdowm>
   <mat-form-field>
     <mat-label>Комментарий</mat-label>
     <textarea
