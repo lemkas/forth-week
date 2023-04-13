@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ModalComponent } from '../modal/modal.component';
 import { NumberValidator } from 'src/app/validators/number.validators';
 import { FeedbackService } from 'src/app/services/feedback.service';
+import { DEPARTMENTS } from 'src/app/models/feedback-form';
 
 @Component({
   selector: 'app-feedback-form',
@@ -16,7 +17,7 @@ export class FeedbackFormComponent implements OnInit {
   isValidFields: boolean = false;
   showForm: boolean = true;
   isNumberError: boolean = false;
-  departments: any[] = this.feedBackService.departments;
+  departments: DEPARTMENTS[] = this.feedBackService.departments;
   private invalidControls: Array<string> = [];
   private subscription!: Subscription;
   constructor(

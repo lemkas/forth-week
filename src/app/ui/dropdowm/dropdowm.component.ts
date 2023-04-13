@@ -1,11 +1,9 @@
 import { Component, Input, OnInit, forwardRef } from '@angular/core';
-
 import {
   ControlValueAccessor,
   FormControl,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { DEPARTMENTS } from 'src/app/models/feedback-form';
 
 @Component({
   selector: 'app-dropdowm',
@@ -20,17 +18,17 @@ import { DEPARTMENTS } from 'src/app/models/feedback-form';
   ],
 })
 export class DropdowmComponent implements OnInit, ControlValueAccessor {
-  @Input() options: any[] = [];
+  @Input() options: string[] = [];
   dropdownControl = new FormControl();
-  onChange(value: DEPARTMENTS): void {}
+  onChange(value: string): void {}
 
   ngOnInit(): void {
-    this.dropdownControl.valueChanges.subscribe((value: DEPARTMENTS) => {
+    this.dropdownControl.valueChanges.subscribe((value: string) => {
       this.onChange(value);
     });
   }
 
-  writeValue(value: any): void {
+  writeValue(value: string): void {
     this.dropdownControl.setValue(value);
   }
 
@@ -38,5 +36,5 @@ export class DropdowmComponent implements OnInit, ControlValueAccessor {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(): void {}
 }
