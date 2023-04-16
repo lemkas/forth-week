@@ -1,4 +1,12 @@
-import { Component, Input, OnInit, forwardRef } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnInit,
+  forwardRef,
+} from '@angular/core';
 import {
   ControlValueAccessor,
   FormControl,
@@ -19,10 +27,20 @@ import {
 })
 export class DropdowmComponent implements OnInit, ControlValueAccessor {
   @Input() options: string[] = [];
+  @Input() disabled: boolean = false;
+  private element!: HTMLElement;
   dropdownControl = new FormControl();
   onChange(value: string): void {}
+  onTouched(value: string): void {}
+
+  constructor(
+    private elementRef: ElementRef,
+    @Inject(DOCUMENT) private document: HTMLDocument
+  ) {}
 
   ngOnInit(): void {
+    this.element = this.elementRef.nativeElement as HTMLElement;
+    this.isDisabled();
     this.dropdownControl.valueChanges.subscribe((value: string) => {
       this.onChange(value);
     });
@@ -36,5 +54,14 @@ export class DropdowmComponent implements OnInit, ControlValueAccessor {
     this.onChange = fn;
   }
 
-  registerOnTouched(): void {}
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  private isDisabled(): void {
+    if (this.disabled) {
+      this.element.style.pointerEvents = 'none';
+      this.element.style.opacity = '0.5';
+    }
+  }
 }
