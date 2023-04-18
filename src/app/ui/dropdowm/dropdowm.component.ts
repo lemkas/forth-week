@@ -1,8 +1,6 @@
-import { DOCUMENT } from '@angular/common';
 import {
   Component,
   ElementRef,
-  Inject,
   Input,
   OnInit,
   forwardRef,
@@ -29,14 +27,11 @@ export class DropdowmComponent implements OnInit, ControlValueAccessor {
   @Input() options: string[] = [];
   @Input() disabled: boolean = false;
   private element!: HTMLElement;
+  private onChange(value: string): void {}
+  private onTouched!: () => void;
   dropdownControl = new FormControl();
-  onChange(value: string): void {}
-  onTouched(value: string): void {}
 
-  constructor(
-    private elementRef: ElementRef,
-    @Inject(DOCUMENT) private document: HTMLDocument
-  ) {}
+  constructor(private readonly elementRef: ElementRef) {}
 
   ngOnInit(): void {
     this.element = this.elementRef.nativeElement as HTMLElement;
